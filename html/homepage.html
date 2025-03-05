@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.0/dist/tesseract.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        .dropdown-content {
+            transform-origin: top;
+            transform: scale(0.95);
+            transition: all 0.1s ease-in-out;
+        }
+        .group:hover .dropdown-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="navbar shadow-md bg-[#1B3A57]">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo Section -->
+                <a href="homepage.html">
+                    <div class="logo flex items-center">
+                        <img src="../images/nav_logo.png" alt="Company Icon" class="h-8 w-auto mr-2">
+                        <!-- <img src="../images/navb_logo.png" alt="Company Icon" class="h-10 w-auto mr-2"> -->
+                        <!-- <span class="text-white text-2xl font-semibold">PWDi</span> -->
+                    </div>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- <a href="homepage.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a> -->
+                    <!-- Replacing the Validate dropdown with a simple link -->
+                    <a href="#verify-section" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Verify PWD ID</a>
+                    <a href="feedback.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    <a href="admin-login.html" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Admin Login</a>
+                    <!-- Dropdown Menu -->
+                    <!-- <div class="relative group">
+                        <button class="text-gray-300 group-hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center">
+                            <span>More</span>
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-content absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-t-md">Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="feedback.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-b-md">Feedback   </a>
+                            <a href="admin-login.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-b-md">Login</a>
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- Mobile Menu Button (for responsiveness)-->
+                <div class="md:hidden">
+                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (para responsive)-->
+            <div class="mobile-menu hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#home" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+                    <a href="#services" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Services</a>
+                    <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                    <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto mt-10 p-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h1 class="text-2xl font-bold text-center text-[#1B3A57] mb-8">PWD ID Validator</h1>
+            
+            <div class="space-y-6">
+                <!-- Island Group Selection -->
+                <div class="relative group" id="island-group-container">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Island Group</label>
+                    <button id="island-group-button" class="w-full bg-white border border-gray-300 rounded-md py-2 px-3 text-left focus:outline-none focus:ring-2 focus:ring-[#1B3A57] focus:border-[#1B3A57] flex justify-between items-center">
+                        <span>Select Island Group</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="island-group-dropdown" class="hidden absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg">
+                        <div class="py-1">
+                            <!-- Options -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Region Selection -->
+                <div class="relative group hidden" id="region-container">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Region</label>
+                    <button id="region-button" class="w-full bg-white border border-gray-300 rounded-md py-2 px-3 text-left focus:outline-none focus:ring-2 focus:ring-[#1B3A57] focus:border-[#1B3A57] flex justify-between items-center">
+                        <span>Select Region</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="region-dropdown" class="hidden absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg">
+                        <div class="py-1">
+                            <!-- Options  -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Province Selection -->
+                <div class="relative group hidden" id="province-container">
+                    <label for="province-input" class="block text-sm font-medium text-gray-700 mb-2">Select Province</label>
+                    <input
+                        type="text"
+                        id="province-input"
+                        class="w-full bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B3A57] focus:border-[#1B3A57]"
+                        placeholder="Type or select a province"
+                    >
+                    <div id="province-dropdown" class="hidden absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg max-h-60 overflow-auto">
+                        <div class="py-1">
+                            <!-- Options -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- City/Municipality Selection -->
+                <div class="relative group hidden" id="city-container">
+                    <label for="city-input" class="block text-sm font-medium text-gray-700 mb-2">Select City/Municipality</label>
+                    <input
+                        type="text"
+                        id="city-input"
+                        class="w-full bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B3A57] focus:border-[#1B3A57]"
+                        placeholder="Type or select a city/municipality"
+                    >
+                    <div id="city-dropdown" class="hidden absolute z-10 mt-1 w-full bg-white rounded-md shadow-lg max-h-60 overflow-auto">
+                        <div class="py-1">
+                            <!-- Options -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ID Validation Input -->
+                <div class="hidden" id="validation-container">
+                    <label for="pwd-id" class="block text-sm font-medium text-gray-700 mb-2">Enter PWD ID Number</label>
+                    <input type="text" id="pwd-id" class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#1B3A57] focus:border-[#1B3A57]" placeholder="Enter ID number">
+                    <button id="validate-button" class="mt-4 w-full bg-[#1B3A57] text-white py-2 px-4 rounded-md hover:bg-[#2C5A84] focus:outline-none focus:ring-2 focus:ring-[#1B3A57] focus:ring-offset-2">
+                        Validate ID
+                    </button>
+
+                    <div id="validation-status" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main class="max-w-4xl mx-auto mt-10 p-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="id-upload">
+                    Upload PWD ID Image
+                </label>
+                <input class="hidden" type="file" id="id-upload" accept="image/*">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50" id="drop-area">
+                    <p>Drag and drop your PWD ID image here or click to browse</p>
+                    <p class="text-sm text-gray-500 mt-2">Supported formats: JPG, PNG</p>
+                </div>
+            </div>
+            
+            <div id="preview-container" class="hidden mb-6">
+                <h2 class="text-lg font-semibold mb-2">Preview</h2>
+                <img id="preview-image" class="max-w-full h-auto rounded-lg" src="" alt="ID Preview">
+                <button id="process-button" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Process ID
+                </button>
+            </div>
+            
+            <div id="results-container" class="hidden mb-6">
+                <h2 class="text-lg font-semibold mb-2">Extracted Information</h2>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="mb-4">
+                        <span class="font-semibold">ID Number:</span>
+                        <span id="id-number"></span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="font-semibold">Name:</span>
+                        <span id="name"></span>
+                    </div>
+                    <!-- <div class="mb-4">
+                        <span class="font-semibold">Expiry Date:</span>
+                        <span id="expiry-date"></span>
+                    </div> -->
+                    <div id="verification-status" class="mt-4 p-3 rounded-lg"></div>
+                </div>
+            </div>
+            
+            <div id="loading" class="hidden text-center">
+                <p class="mb-2">Processing image...</p>
+                <div class="loader mx-auto w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/homepage.js"></script>
+    <script src="../js/image-scanning.js"></script>
+</body>
+</html>
